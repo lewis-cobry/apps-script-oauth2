@@ -483,6 +483,19 @@ Service_.prototype.getIdToken = function() {
   return token.id_token;
 };
 
+Service_.prototype.getApiEndpoint = function() {
+  if (!this.hasAccess()) {
+    throw new Error('Access not granted or expired');
+  }
+  let token = this.getToken();
+  try {
+    return token.api_endpoint;
+  }
+  catch {
+    return null;
+  }
+}
+
 /**
  * Resets the service, removing access and requiring the service to be
  * re-authorized. Also removes any additional values stored in the service's
